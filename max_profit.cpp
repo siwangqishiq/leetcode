@@ -30,34 +30,73 @@
 
 using namespace std;
 
-int findMaxProfit(int start , int end , vector<vector<int>> &memo){
-    int maxProfit = 0;
-    for(int i = 0 ; i <= end;i++){
-        findMaxProfit(start,i)
-    }
+// int findMaxProfit(int start , int end , vector<vector<int>> &memo){
+//     int maxProfit = 0;
+//     for(int i = 0 ; i <= end;i++){
+//         findMaxProfit(start,i)
+//     }
 
-    return 0;
+//     return 0;
+// }
+
+// int maxProfit(vector<int>& prices) {
+//     int profit = 0;
+//     for(int i = 0 ; i < prices.size() ;i++){
+//         for(int j = i + 1; j < prices.size(); j++){
+//             if(prices[j] - prices[i] > profit){
+//                 // cout << j << "   -   " << i << endl;
+//                 profit = prices[j] - prices[i];
+//             }
+//         }//end for j
+//     }//end for i
+//     return profit;
+// }
+
+int findMaxProfit(vector<int> &data , int start , int end){
+    int len = end - start;
+    // cout << "start : " << start << " \t end: " << end << endl;
+    if(len <= 2){
+        if(len == 1){
+            return -data[start];
+        }else{
+            return data[end - 1] - data[start];
+        }
+    }else{
+        int mid = (start + end) / 2;
+        int leftMax = findMaxProfit(data , start , mid);
+        int rightMax = findMaxProfit(data , mid , end);
+
+        int result = leftMax > rightMax ?leftMax:rightMax;
+        
+        //find min
+        int min = 99999;
+        for(int i = start ;i < mid ;i++){
+            if(min > data[i]){
+                min = data[i];
+            }
+        }
+
+        int max = -99999;
+        for(int i = mid ; i< end;i++){
+            if(max < data[i]){
+                max = data[i];
+            }
+        }
+        
+        int mergeResult = max - min;
+        result = result > mergeResult ? result : mergeResult;
+        return result;
+    }
 }
 
 int maxProfit(vector<int>& prices) {
-    const int size  = prices.size();
-    vector<vector<int>> memo(size , vector<int>(size , 0));
-    for(int i = 0 ; i < size;i++){
-        memo[i][i] = prices[i];
-    }
-
-    for(int i = 0 ; i < size ; i++){
-        for(int j = 0; j <= i;j++){
-            memo[i][j] = max{};
-        }
-    }
-
-    int result = findMaxProfit(0 , size -1 , memo);
-    return 0;
+    int result = findMaxProfit(prices , 0 , prices.size());
+    return result <0 ? 0: result ;
 }
 
 int main(){
-    vector<int> prices= {7,1,5,3,6,4};
-
+    // vector<int> prices= {7,6,4,3,1};
+    // vector<int> prices= {1,2,3,4,5,6,7,8,9,10};
+    cout << "profile = " << maxProfit(prices) << endl;
     return 0;
 }
