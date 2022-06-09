@@ -203,7 +203,7 @@ public:
                     longestIndex = i;
                 }
                 string subStr = string(data +i , checkLen + 1);
-                cout << "->" << subStr << " is " << memo[i][ i + checkLen] <<  endl;
+                //cout << "->" << subStr << " is " << memo[i][ i + checkLen] <<  endl;
             }//end for i
         }//end for checkLen
 

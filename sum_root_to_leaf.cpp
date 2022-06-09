@@ -42,7 +42,7 @@ int sumRootToLeaf(TreeNode* root) {
     int sum = 0;
 
     travelBinaryTree(root , sum , leafNodeValues);
-
+    
     int result = 0;
     for(int v : leafNodeValues){
         //cout << v << "  ";
