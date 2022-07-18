@@ -16,75 +16,55 @@
 
 #include <iostream>
 #include <vector>
+#include <algorithm>
 
-typedef std::vector<int> ZoneType;
+using namespace std;
 
-void merge(std::vector<ZoneType> *pSet , ZoneType zone){
-    if(pSet == nullptr)
-        return;
-
-    int left = zone[0];
-    int right = zone[1];
-    if(left > right)
-        return;
-
-    for(int i = 0 , len = pSet->size(); i < len ; i++){
-        ZoneType iZone = pSet->at(i);
-        if(i == 0){//首个元素
-            if(left < iZone[0]){
-
-            }else{
-                    
-            }
-        }else if(i == len -1){ //末尾元素
-           if(right )
-        }else{
-            
-        }
-    }//end for i
-    pSet->push_back({left , right});
+bool compare(vector<int> &left , vector<int> right){
+    return left[0] < right[0];
 }
 
-std::vector<ZoneType> mergeAll(std::vector<ZoneType> *pInputs){
-    ZoneType s={1,2};
+/**
+*
+[[a,b]] [leftElem,rightElem]
+**/
+void mergeAdd(vector<vector<int>> &result , vector<int> &addElem){
+    if(result.empty()){
+        result.push_back(addElem);
+    }else{
+        vector<int> lastElem = result[result.size() - 1];
+        
+        int addLeft = addElem[0];
+        int addRight = addElem[1];
 
-    std::vector<ZoneType> result;
+        if(addLeft > lastElem[1]){
+            result.push_back(addElem);
+        }else{
+            result[result.size() - 1][1] = std::max(result[result.size() - 1][1] , addRight);
+        }
+    }
+}
 
-    for(int i = 0 ; i < pInputs->size();i++){
-        merge(&result , pInputs->at(i));
-    }//end for i
+vector<vector<int>> merge(vector<vector<int>>& intervals) {
+    std::sort(intervals.begin(), intervals.end() , compare);
+
+    vector<vector<int>> result;
+    for(auto &v : intervals){
+        mergeAdd(result , v);
+    }//end for
 
     return result;
 }
 
-void testVectorInsert() {
-    
-    std::vector<int> list = {0,1,2,3,4,5,6,7};
+int main(){
+    // vector<vector<int>> intervals = {{1,3},{15,18},{2,6},{8,10}};
+    vector<vector<int>> intervals = {{1,4},{4,5}};
+    auto result = merge(intervals);
 
-    std::cout << "[ ";
-    for(int &v : list){
-        std::cout << v << " ";
+    for(auto &v : result){
+        cout << "[ " << v[0] << " , " << v[1] << "] ";
     }//end for each
-    std::cout<< "]" << std::endl;
-
-    list.insert(std::end(list) - 1, 777);
-
-    std::cout << "[ ";
-    for(int &v : list){
-        std::cout << v << " ";
-    }//end for each
-    std::cout<< "]" << std::endl;
-}
-
-int main(int argc , char **argv){
-    std::vector<ZoneType> inputs = {{1,3},{2,6},{8,10},{15,18}};
-    std::vector<ZoneType> result = mergeAll(&inputs);
-
-    std::cout << "[ ";
-    for(ZoneType &v : result){
-        std::cout << "{ " << v[0] << " , " << v[1] << " }";
-    }//end for each
-    std::cout<< " ]" << std::endl;
+    cout << endl;
 
     return 0;
 }
