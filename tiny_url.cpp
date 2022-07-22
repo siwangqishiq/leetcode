@@ -8,6 +8,8 @@ using namespace std;
 
 class Solution{
 private:
+    default_random_engine engin;    //得到一个随机数生成器
+
     const string TINY_URL = "http://tinyurl.com/";
     map<string , string> tinyToUrlMap;
 
@@ -17,12 +19,10 @@ private:
         }
     }
 
-    string genRandomStr(int weight = 8){
+    string genRandomStr(int weight = 6){
         string result;
         char tmp;
 
-        default_random_engine engin;    //得到一个随机数生成器
-        engin.seed(time(nullptr)); //传入种子
         uniform_int_distribution<int> dist(0, 35);  //得到一个随机分布
         for(int i = 0 ; i< weight; i++){
             tmp =  dist(engin);
@@ -40,6 +40,9 @@ private:
     }
 
 public:
+    Solution(){
+        engin.seed(time(nullptr)); //传入种子
+    }
     // Encodes a URL to a shortened URL.
     string encode(string longUrl) {
         string shortUrl;
