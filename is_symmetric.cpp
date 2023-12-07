@@ -12,37 +12,25 @@ struct TreeNode {
      TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
 };
 
-bool isSymmetricTree(TreeNode *root){
-    if(root == nullptr)
+bool isSymmetricTree(TreeNode *left , TreeNode *right){
+    if(left == nullptr && right == nullptr){
         return true;
-    
-    if(root->left == nullptr && root->right == nullptr){
-        return true;
-    }else if(root->left == nullptr && root->right != nullptr 
-            || root->left != nullptr && root->right == nullptr ){
+    }else if(left != nullptr && right == nullptr){
         return false;
-    }else{ 
-        TreeNode *leftNode = root->left;
-        TreeNode *rightNode = root->right;
-
-        if(leftNode->left == nullptr && leftNode->right == nullptr 
-            && rightNode->left == nullptr && rightNode->right == nullptr ){
-                return true;
-            }
-
-        return root->left->val == root->right->val
-            && isSymmetricTree(root->left) 
-            && isSymmetricTree(root->right);
+    }else if(left == nullptr && right != nullptr){
+        return false;
+    }else{
+        return (left->val == right->val) 
+            && isSymmetricTree(left->left , right->right)
+            && isSymmetricTree(left->right , right->left);
     }
-
 }
 
 bool isSymmetric(TreeNode* root) {
-    vector<int> treeElements;
-    //i 
-    // i + 1 , i + 2 
-
-    return isSymmetricTree(root);
+    if(root == nullptr){
+        return true;
+    }
+    return isSymmetricTree(root->left , root->right);
 }
 
 int main(){
