@@ -51,22 +51,14 @@ ListNode* deleteDuplicates(ListNode* head) {
     ListNode *p = head;
     unordered_map<int,  int> hashSet;
     while(p != nullptr){
-        if(hashSet.find(head->val) == hashSet.end()){
-            hashSet[p->val] = 1;
-        }else{
-            hashSet[p->val] = hashSet[p->val] + 1;
+        if(hashSet.find(p->val) == hashSet.end()){
+            nodeList.push_back(p);
         }
+
+        hashSet[p->val] = 1;
         p = p->next;
     }//end while
     
-
-    p = head;
-    while(p != nullptr){
-        if(hashSet[p->val] == 1){
-            nodeList.push_back(p);
-        }
-        p = p->next;
-    }//end while
     // cout << "nodeList cout = " << nodeList.size() << endl;
     return buildLinkedListFromVector(nodeList);
 }
