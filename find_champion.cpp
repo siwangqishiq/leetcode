@@ -12,7 +12,8 @@ int findChampion(vector<vector<int>>& grid) {
     }//end for i
 
     int winner = lastVector[0];
-    for(int i = 1 ; i < lastVector.size() ; i++){
+    const int vecLimit = lastVector.size();
+    for(int i = 1 ; i < vecLimit ; i++) {
         const int oppon = lastVector[i];
         if(grid[winner][oppon] != 1){
             winner = oppon;
