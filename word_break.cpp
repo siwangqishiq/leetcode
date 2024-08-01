@@ -22,7 +22,7 @@ bool findWord(vector<string> &wordDict , string &word){
     for(int i = 0 ; i < wordDict.size() ;i++){
         if(wordDict[i]== word){
             return true;
-        }
+        }//end if
     }//end for i
 
     return false;

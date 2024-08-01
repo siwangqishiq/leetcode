@@ -34,6 +34,34 @@ using namespace std;
 //     return result;
 // }
 
+vector<int> dailyTemp(vector<int> &temperatures){
+    vector<int> result;
+    //{73,74,75,71,69,72,76,73}
+    //  0  1  2  3  4  5  6  7
+    // 
+    // sort 
+    // 69 -> [4]
+    // 71 -> [3]
+    // 72 -> [5]
+    // 73 -> [0,7]
+    // 74 -> [1]
+    // 75 -> [2]
+    // 76 -> [6]
+    //  0  1  2  3  4  5  6  7
+    // 73,74,75,71,69,72,76,73
+    //  1, 1, 4, 2, 1, 1, 0,0         
+
+    // 60 , 50, 40, 30
+    //  0 ,  1,  2,  3
+    // 30 -> 3
+    // 40 -> 2
+    // 50 -> 1
+    // 60 -> 0
+    
+
+    return result;
+}
+
 vector<int> dailyTemperatures(vector<int>& temperatures) {
     vector<int> result;
     if(temperatures.empty()){
