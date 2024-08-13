@@ -10,32 +10,38 @@ long long numberOfRightTriangles(vector<vector<int>> &grid){
     const int n = grid[0].size();
 
     long long triCount = 0; 
-    
+    vector<int> records;
+    vector<vector<int>> colNoneZeros(n);
     for(int i = 0 ; i < m; i++){
         vector<int> &data = grid[i];
         
-        vector<int> records;
+        records.clear();
         for(int j = 0; j < n; j++){
             if(data[j] == 1){
                 records.push_back(j);
+                colNoneZeros[j].push_back(i);
             }
         }//end for j
 
-        if(records.size() < 2) {
+        const int recordSize = records.size();
+        if(recordSize < 2) {
             continue;
         }
 
-        for(auto &col : records) {
-            for(int k = 0 ; k < m; k++){
-                if(k == i){
+        for(int index = 0;index < recordSize;index++){
+            int col = records[index];
+            vector<int> &colRecords = colNoneZeros[col];
+
+            for(int k;k < colRecords.size(); k++){
+                if(colRecords[k] == i){
                     continue;
                 }
-
-                if(grid[k][col] == 1){
-                    triCount++;
-                }
-            }//end for k
-        }//end for k
+                //add left count
+                triCount += index;
+                //add right count
+                triCount += (records.size() - index - 1);
+            }//end for indexColum
+        }//end for index
     }//end for i
 
     return triCount;
@@ -43,10 +49,21 @@ long long numberOfRightTriangles(vector<vector<int>> &grid){
 
 int main(){
     vector<vector<int>> grid = {
-        {1,0,1},
-        {1,0,0},
-        {1,0,0}
+        {1,1,1},
+        {1,0,1}
     };
+
+    // vector<vector<int>> grid = {
+    //     {1,0,0,0},
+    //     {0,1,0,1},
+    //     {1,0,0,0}
+    // };
+
+    //  vector<vector<int>> grid = {
+    //     {1,0,1,0},
+    //     {1,0,0,0},
+    //     {1,0,0,0}
+    // };
 
     auto result = numberOfRightTriangles(grid);
 
