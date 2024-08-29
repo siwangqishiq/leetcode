@@ -13,7 +13,7 @@ public:
 };
 
 int findImportanceValue(Employee *employee , vector<Employee*> &employees , 
-    unordered_map<int , Employee*> &employeeMap,
+    unordered_map<int , Employee* > &employeeMap,
     unordered_map<int , int> &cache){
     const int id = employee->id;
     if(cache.find(id) != cache.end()){
