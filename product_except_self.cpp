@@ -48,7 +48,6 @@ vector<int> productExceptSelf(vector<int>& nums) {
     return result;
 }
 
-
 int main(){
     cout << divToMovOp(100,3) << endl;
     return 0;
